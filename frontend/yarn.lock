@@ -7358,6 +7358,13 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
+react-cytoscapejs@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-cytoscapejs/-/react-cytoscapejs-2.0.0.tgz#fdc2547626df0678acfbb48e73a437ddc1687b01"
+  integrity sha512-t3SSl1DQy7+JQjN+8QHi1anEJlM3i3aAeydHTsJwmjo/isyKK7Rs7oCvU6kZsB9NwZidzZQR21Vm2PcBLG/Tjg==
+  dependencies:
+    prop-types "^15.8.1"
+
 react-dev-utils@^12.0.1:
   version "12.0.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-12.0.1.tgz#ba92edb4a1f379bd46ccd6bcd4e7bc398df33e73"
