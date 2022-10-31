@@ -4,10 +4,7 @@ import "./App.css";
 import UserInput from "./userInput";
 import CytoscapeComponent from "react-cytoscapejs";
 import Cytoscape from "cytoscape";
-
-import coseBilkent from "cytoscape-cose-bilkent";
-
-Cytoscape.use(coseBilkent);
+import Graph from "./graphComponent";
 
 function App() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -40,15 +37,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p>Coucou!</p>
-        <CytoscapeComponent
-          elements={elements}
-          style={{
-            width: "800px",
-            height: "500px",
-            border: "1px solid black",
-          }}
-          layout={layout}
-        />
+        <Graph elements={elements} />
         <UserInput />
         <p>The current time is {currentTime} .</p>
       </header>

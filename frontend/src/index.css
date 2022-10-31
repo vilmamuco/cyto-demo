@@ -7,11 +7,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   padding: 0px;
   display: block;
+  text-align: left;
 }
 
 html, div, canvas {
   margin: 0;
   padding: 0;
+  text-align: left;
 }
 
 code {
