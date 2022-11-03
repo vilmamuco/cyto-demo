@@ -23,15 +23,10 @@ def get_edges():
 
 @app.route('/elements')
 def get_elements():
-    # elements = []
-    # elements += [{'data': node} for node in nodes.find({}, {"_id":0})]
-    # elements += [{'data': node} for node in edges.find({}, {"_id":0})]
-    # return jsonify(elements)
-    return  [
-    { "data": { "id": "one", "label": "Node 1" }, "position": { "x": 15, "y": 15 } },
-    { "data": { "id": "two", "label": "Node 2" }, "position": { "x": 100, "y": 500 } },
-    {"data": { "source": "one", "target": "two", "label": "Edge from Node1 to Node2" },},
-  ];
+    elements = []
+    elements += [{'data': node} for node in nodes.find({}, {"_id":0})]
+    elements += [{'data': node} for node in edges.find({}, {"_id":0})]
+    return jsonify(elements)
 
 
 
