@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Cytoscape from 'cytoscape';
 import CytoscapeComponent from 'react-cytoscapejs';
+import { toHaveDisplayValue } from '@testing-library/jest-dom/dist/matchers';
 
 export default class Graph extends Component {
   render() {
@@ -8,6 +9,7 @@ export default class Graph extends Component {
     const layout = {
         name: 'cose'
     };
+    
     return(
         <CytoscapeComponent
             elements={this.props.elements}
@@ -22,5 +24,16 @@ export default class Graph extends Component {
             layout={layout}
         />
     );
+  }
+ 
+  componentDidMount() {
+    this.cy.layout({
+      name: 'circle'
+  }).run();
+
+  this.cy.on('dragfree', 'node', (e) => {
+    var node = e.target;
+    console.warn(node.position());
+  });
   }
 }
