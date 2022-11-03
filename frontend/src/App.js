@@ -19,21 +19,6 @@ function App() {
   // ];
   const [elements, setElements] = useState(() => []);
 
-  useEffect(() => {
-    fetch("/time")
-      .then(
-        (res) => res.json(),
-        (reason) => {
-          console.log("error:", reason);
-          return { time: "FUCK" };
-        }
-      )
-      .then((data) => {
-        console.log(data);
-        setCurrentTime(data.time);
-      });
-  }, []);
-
   // setElements(elementsTest);
   useEffect(() => {
     fetch("/elements")
@@ -60,7 +45,6 @@ function App() {
         <div className="right">
           <UserInput />
         </div>
-        <p>The current time is {currentTime} .</p>
       </header>
     </div>
   );
