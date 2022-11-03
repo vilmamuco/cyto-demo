@@ -20,3 +20,39 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.form-inner {
+  padding: 40px;
+}
+input, textarea {
+display: block;
+width: 100%;
+padding: 15px;
+margin-bottom: 10px;
+border: none;
+border-radius: 10px;
+background: #d0dfe8;
+}
+textarea {
+resize: none;
+}
+button {
+width: 50%;
+padding: 10px;
+margin-top: 20px;
+border-radius: 20px;
+border: none;
+border-bottom: 4px solid #7B1818;
+background: #880808; 
+font-size: 16px;
+font-weight: 400;
+color: #fff;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}

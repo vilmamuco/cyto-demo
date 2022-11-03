@@ -10,13 +10,14 @@ function App() {
   const [currentTime, setCurrentTime] = useState(0);
   const layout = { name: "cose-bilkent" };
 
-  const elements = [
-    { data: { id: "one", label: "Node 1" }, position: { x: 500, y: 50 } },
-    { data: { id: "two", label: "Node 2" }, position: { x: 100, y: 50 } },
-    {
-      data: { source: "one", target: "two", label: "Edge from Node1 to Node2" },
-    },
-  ];
+  // const elementsTest = [
+  //   { data: { id: "one", label: "Node 1" }, position: { x: 500, y: 50 } },
+  //   { data: { id: "two", label: "Node 2" }, position: { x: 100, y: 50 } },
+  //   {
+  //     data: { source: "one", target: "two", label: "Edge from Node1 to Node2" },
+  //   },
+  // ];
+  const [elements, setElements] = useState(() => []);
 
   useEffect(() => {
     fetch("/time")
@@ -33,12 +34,32 @@ function App() {
       });
   }, []);
 
+  // setElements(elementsTest);
+  useEffect(() => {
+    fetch("/elements")
+      .then(
+        (res) => res.json(),
+        (reason) => {
+          console.log("error:", reason);
+          return;
+        }
+      )
+      .then((data) => {
+        setElements(data);
+        console.log(elements);
+      });
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
         <p>Coucou!</p>
-        <Graph elements={elements} />
-        <UserInput />
+        <div className="left">
+          <Graph elements={elements} />
+        </div>
+        <div className="right">
+          <UserInput />
+        </div>
         <p>The current time is {currentTime} .</p>
       </header>
     </div>

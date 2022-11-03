@@ -24,7 +24,11 @@ class UserInput extends React.Component {
             Add a new Node:
             <input type="text" value={this.state.value} onChange={this.handleChange} />
           </label>
-          <input type="submit" value="Submit" />
+          <label>
+            Add a new Edge:
+            <input type="text" value={this.state.value} onChange={this.handleChange} />
+          </label>
+          <button type="submit"> Submit</button>
         </form>
       );
     }
