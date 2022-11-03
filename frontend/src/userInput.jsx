@@ -4,7 +4,7 @@ class UserInput extends React.Component {
       super(props);
       this.state = {id: '', 
                     label: '', 
-                    target: ''
+                    targetNode: ''
                     };
   
       this.handleChange = this.handleChange.bind(this);
@@ -22,8 +22,13 @@ class UserInput extends React.Component {
     }
   
     handleSubmit(event) {
-      alert('A name was submitted: ' + this.state.value);
-      event.preventDefault();
+      if (this.state.id == "" || this.state.label == ""){
+        alert("Please fill in the Node Id and the Label to continue.");
+        return;
+      }
+      var data = {"id": this.state.id, "label": this.state.label, "target": this.state.targetNode};
+      this.props.saveNewElement(data);
+      //event.preventDefault();
     }
   
     render() {
@@ -38,12 +43,10 @@ class UserInput extends React.Component {
             <input type="text" name="label" value={this.state.label} onChange={this.handleChange} />
           </label>
           <label>
-            Select a target Node:
-            <select name="target">
-              <option value="grapefruit">Grapefruit</option>
-              <option value="lime">Lime</option>
-              <option value="coconut">Coconut</option>
-              <option value="mango">Mango</option>
+            Select a target Node: 
+            <select name="targetNode" value={this.state.target} onChange={this.handleChange} >
+              <option value='' selected >Select a target node</option>
+              {this.props.targetNodes.map(({ id, label }, index) => <option value={id}  key={id} >{label}</option>)}
             </select>
           </label>
           <button type="submit"> Submit</button>

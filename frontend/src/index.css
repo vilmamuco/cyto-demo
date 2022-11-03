@@ -24,18 +24,22 @@ code {
 .form-inner {
   padding: 40px;
 }
-input, textarea {
+input, textarea, select {
 display: block;
 width: 100%;
+font-size: 16px;
 padding: 15px;
 margin-bottom: 10px;
 border: none;
 border-radius: 10px;
 background: #d0dfe8;
 }
-textarea {
-resize: none;
+
+label {
+  font-size: 20px;
+  margin-bottom: 10px;
 }
+
 button {
 width: 50%;
 padding: 10px;
