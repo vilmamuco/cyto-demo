@@ -45,7 +45,7 @@ class UserInput extends React.Component {
           <label>
             Select a target Node: 
             <select name="targetNode" value={this.state.target} onChange={this.handleChange} >
-              <option value='' selected >Select a target node</option>
+              <option value='' >Select a target node</option>
               {this.props.targetNodes.map(({ id, label }, index) => <option value={id}  key={id} >{label}</option>)}
             </select>
           </label>
