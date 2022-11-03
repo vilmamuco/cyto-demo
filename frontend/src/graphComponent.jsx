@@ -33,6 +33,7 @@ export default class Graph extends Component {
 
   this.cy.on('dragfree', 'node', (e) => {
     var node = e.target;
+    this.props.onPositionChange(node);
     console.warn(node.position());
   });
   }

@@ -1,5 +1,5 @@
 import time
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import pymongo
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -24,5 +24,16 @@ def get_elements():
     elements += [node for node in edges.find({}, {"_id":0})]
     return jsonify(elements)
 
+@app.route("/updatePosition", methods=["POST"], strict_slashes=False)
+def update_Position():
+    id = request.json['data']['id']
+    x = request.json['position']['x']
+    y = request.json['position']['y']
+
+    nodes.update_one({"data.id": id},
+            {"$set": {"position.x": x, "position.y": y}})
+
+    # maybe return just ok 
+    return get_elements()
 
 
