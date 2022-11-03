@@ -24,8 +24,8 @@ def get_edges():
 @app.route('/elements')
 def get_elements():
     elements = []
-    elements += [{'data': node} for node in nodes.find({}, {"_id":0})]
-    elements += [{'data': node} for node in edges.find({}, {"_id":0})]
+    elements += [node for node in nodes.find({}, {"_id":0})]
+    elements += [node for node in edges.find({}, {"_id":0})]
     return jsonify(elements)
 
 
