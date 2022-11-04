@@ -24,6 +24,7 @@ code {
 .form-inner {
   padding: 40px;
 }
+
 input, textarea, select {
 display: block;
 width: 100%;
@@ -31,8 +32,15 @@ font-size: 16px;
 padding: 15px;
 margin-bottom: 10px;
 border: none;
-border-radius: 10px;
+border-radius: 0px;
 background: #d0dfe8;
+}
+.contextMenu button{
+  background: #880808;
+  border-radius: 0px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
 }
 
 label {

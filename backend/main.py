@@ -24,6 +24,12 @@ def get_elements():
     elements += [node for node in edges.find({}, {"_id":0})]
     return jsonify(elements)
 
+@app.route('/elementIds')
+def get_elementIds():
+    elementIds = []
+    elementIds += [ node['data']['id'] for node in nodes.find({}, {"_id":0})]
+    return jsonify(elementIds)
+
 @app.route('/getTargetNodes')
 def get_targetNodes():
     # send the target nodes for the select input for the user form
@@ -45,14 +51,30 @@ def update_Position():
 @app.route('/saveNewElement', methods=['POST'], strict_slashes=False)
 def save_newElement():
     #saves the new element int the corresponding tables in the database (nodes, edges)
+    request_data = request.get_json()
     id = request.json['id']
     label = request.json['label']
-    target = request.json['target']
-    if nodes.find({'data.id': { "$in": id}}).count() > 0:
-        nodes.insert_one({"data": {'id': id, 'label':label}, 'position': {'x':0, 'y':0}});
-        print('test' + target);
+    target = None 
+    x = 0
+    y = 0
+
+    if 'target' in request_data:
+        target = request.json['target']
+    if 'x' in request_data:
+        x = request.json['x']
+    if 'y' in request_data:
+        y = request.json['y']
+    if (nodes.find() is not None )or nodes.find({'data.id': { "$in": id}}).count() > 0:
+        nodes.insert_one({"data": {'id': id, 'label':label}, 'position': {'x':x, 'y':y}});
         if target:
             edges.insert_one({'data':{'source':id, 'target': target, 'label':'test add'}});
-    # this might become a problem when the graph is big 
     return get_elements()
 
+@app.route('/deleteNode', methods=['POST'], strict_slashes=False)
+def delete_node():
+    #deletes the node and the edges connected to it 
+    id = request.json['id']
+    if (nodes.find() is not None )or nodes.find({'data.id': id}).count() > 0:
+        nodes.delete_one({'data.id':  id});
+        edges.delete_many({'$or': [{'data.target': id}, {'data.source': id}]});
+    return get_elements()
