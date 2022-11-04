@@ -20,6 +20,22 @@ async function handleNodePosition(node) {
   }
 }
 
+async function updateNodeColor(node) {
+  // function to save the node position after a drag event into the mongoDb
+  try {
+    const response = await fetch(`/updateColor`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(node),
+    });
+    return await response.json();
+  } catch (error) {
+    return console.log(error);
+  }
+}
+
 async function saveNewElement(data) {
   // function to save the new element(new node and/or the new edge)
   try {
@@ -132,6 +148,7 @@ function App() {
               onPositionChange={handleNodePosition}
               deleteNodeFunct={deleteNodeandEdges}
               saveNewElement={saveNewElement}
+              updateNodeColor={updateNodeColor}
             />
           </div>
           <div className="right">

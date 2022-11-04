@@ -31,6 +31,14 @@ export default class Graph extends Component {
         />
     );
   }
+
+  componentDidUpdate(){
+    this.cy.on('style', 'node', (e) => {  
+      //test if we are adding a new node or we are just rendering
+      var data = {"id": e.target.data('id'), 'backgroundColor': e.target.style('background-color')};
+      this.props.updateNodeColor(data);
+    })
+  }
  
   componentDidMount() {
     this.cy.layout({

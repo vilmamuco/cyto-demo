@@ -48,6 +48,18 @@ def update_Position():
     # maybe return just ok 
     return get_elements()
 
+@app.route('/updateColor', methods=['POST'], strict_slashes=False)
+def update_Color():
+    #saves the current position of the node in the database
+    id = request.json['id']
+    color = request.json['backgroundColor']
+
+    nodes.update_one({"data.id": id},
+            {"$set": {"style.background-color": color}})
+    # maybe return just ok 
+    return get_elements()
+
+
 @app.route('/saveNewElement', methods=['POST'], strict_slashes=False)
 def save_newElement():
     #saves the new element int the corresponding tables in the database (nodes, edges)
@@ -55,6 +67,7 @@ def save_newElement():
     id = request.json['id']
     label = request.json['label']
     target = None 
+    color = 'blue'
     x = 0
     y = 0
 
@@ -64,8 +77,10 @@ def save_newElement():
         x = request.json['x']
     if 'y' in request_data:
         y = request.json['y']
+    if 'backgroundColor' in request_data:
+        color = request.json['backgroundColor']
     if (nodes.find() is not None )or nodes.find({'data.id': { "$in": id}}).count() > 0:
-        nodes.insert_one({"data": {'id': id, 'label':label}, 'position': {'x':x, 'y':y}});
+        nodes.insert_one({"data": {'id': id, 'label':label}, 'position': {'x':x, 'y':y}, 'style': {'background-color': color}});
         if target:
             edges.insert_one({'data':{'source':id, 'target': target, 'label':'test add'}});
     return get_elements()
