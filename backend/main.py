@@ -79,7 +79,8 @@ def save_newElement():
         y = request.json['y']
     if 'backgroundColor' in request_data:
         color = request.json['backgroundColor']
-    if (nodes.find() is not None )or nodes.find({'data.id': { "$in": id}}).count() > 0:
+
+    if (nodes.find() is None ) or nodes.count_documents({'data.id': id}) == 0:
         nodes.insert_one({"data": {'id': id, 'label':label}, 'position': {'x':x, 'y':y}, 'style': {'background-color': color}});
         if target:
             edges.insert_one({'data':{'source':id, 'target': target, 'label':'test add'}});

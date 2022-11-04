@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
+import ColorPicker from './colorPicker'
 class UserInput extends React.Component {
     constructor(props) {
       super(props);
       this.state = {id: '', 
                     label: '', 
-                    targetNode: ''
+                    targetNode: '',
+                    backgroundColor:'#ff0000'
                     };
   
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleColorChange = this.handleColorChange.bind(this);
     }
   
     handleChange(event) {
@@ -21,12 +24,18 @@ class UserInput extends React.Component {
       });
     }
   
+    handleColorChange(color)  {
+      this.setState({
+        ['backgroundColor']: color
+      });
+    }
+
     handleSubmit(event) {
       if (this.state.id == "" || this.state.label == ""){
         alert("Please fill in the Node Id and the Label to continue.");
         return;
       }
-      var data = {"id": this.state.id, "label": this.state.label, "target": this.state.targetNode};
+      var data = {"id": this.state.id, "label": this.state.label, "target": this.state.targetNode, "backgroundColor": this.state.backgroundColor};
       this.props.saveNewElement(data);
       //event.preventDefault();
     }
@@ -41,6 +50,9 @@ class UserInput extends React.Component {
           </label>
           <label>Node label:
             <input type="text" name="label" value={this.state.label} onChange={this.handleChange} />
+          </label>
+          <label>Node color:
+            <ColorPicker color={this.state.backgroundColor} handleColorChange={this.handleColorChange} />
           </label>
           <label>
             Select a target Node: 

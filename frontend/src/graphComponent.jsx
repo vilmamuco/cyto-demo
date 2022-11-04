@@ -31,14 +31,6 @@ export default class Graph extends Component {
         />
     );
   }
-
-  componentDidUpdate(){
-    this.cy.on('style', 'node', (e) => {  
-      //test if we are adding a new node or we are just rendering
-      var data = {"id": e.target.data('id'), 'backgroundColor': e.target.style('background-color')};
-      this.props.updateNodeColor(data);
-    })
-  }
  
   componentDidMount() {
     this.cy.layout({
@@ -52,18 +44,6 @@ export default class Graph extends Component {
       console.warn(node.position());
     });
 
-    this.cy.on('add', 'node', (e) => {  
-      //test if we are adding a new node or we are just rendering
-      if (!this.props.elementIds.includes(e.target.data('id'))){
-        var data = {"id": e.target.data('id'), "label": e.target.data('label'), "x": e.target.position('x'), 'y': e.target.position('y')};
-        this.props.saveNewElement(data);
-      }
-    })
-
-    this.cy.on('remove', 'node', (e) => {
-      this.props.deleteNodeFunct(e.target.data('id'));
-    })
-
      var contextMenu = this.cy.contextMenus({
       menuItems: [
         {
@@ -72,9 +52,10 @@ export default class Graph extends Component {
           tooltipText: 'delete',
           image: {src: require("./images/danger-icon.svg").default, width: 20, height: 20, x: 0, y: 4},
           selector: 'node',
-          onClickFunction: function (event) {
+          onClickFunction: (event) => {
             var target = event.target || event.cyTarget;
             target.remove();
+            this.props.deleteNodeFunct(target.data('id'));
           },
           hasTrailingDivider: true
         },
@@ -85,7 +66,7 @@ export default class Graph extends Component {
           image: {src: require('./images/math-plus-icon.svg').default, width: 20, height: 20, x: 0, y: 4},
           selector: 'node, edge',
           coreAsWell: true,
-          onClickFunction: function (event) {
+          onClickFunction: (event) => {
             var data = {
               id: 'test',
               label: 'test node'
@@ -98,6 +79,8 @@ export default class Graph extends Component {
                 y: pos.y
               }
             });
+            var dataInput= {"id": 'test', "label": 'test node', "x": pos.x, 'y': pos.y, 'backgroundColor':'#ff0000'};
+            this.props.saveNewElement(dataInput);
           }
         },
         // add color submenu
@@ -114,27 +97,33 @@ export default class Graph extends Component {
               id: 'color-blue',
               content: 'blue',
               tooltipText: 'blue',
-              onClickFunction: function (event) {
-                let target = event.target || event.cyTarget;
+              onClickFunction: (e) => {
+                let target = e.target || e.cyTarget;
                 target.style('background-color', 'blue');
+                var data = {"id": target.data('id'), 'backgroundColor': target.style('background-color')};
+                this.props.updateNodeColor(data);
               },
               submenu: [
                 {
                   id: 'color-light-blue',
                   content: 'light blue',
                   tooltipText: 'light blue',
-                  onClickFunction: function (event) {
+                  onClickFunction: (event) => {
                     let target = event.target || event.cyTarget;
                     target.style('background-color', 'lightblue');
+                    var data = {"id": target.data('id'), 'backgroundColor': target.style('background-color')};
+                    this.props.updateNodeColor(data);
                   },
                 },
                 {
                   id: 'color-dark-blue',
                   content: 'dark blue',
                   tooltipText: 'dark blue',
-                  onClickFunction: function (event) {
+                  onClickFunction:(event) => {
                     let target = event.target || event.cyTarget;
-                    target.style('background-color', 'darkblue');
+                    target.style('background-color', '0066cc');
+                    var data = {"id": target.data('id'), 'backgroundColor': target.style('background-color')};
+                    this.props.updateNodeColor(data);
                   },
                 },
               ],
@@ -143,18 +132,22 @@ export default class Graph extends Component {
               id: 'color-green',
               content: 'green',
               tooltipText: 'green',
-              onClickFunction: function (event) {
+              onClickFunction:  (event) => {
                 let target = event.target || event.cyTarget;
                 target.style('background-color', 'green');
+                var data = {"id": target.data('id'), 'backgroundColor': target.style('background-color')};
+                this.props.updateNodeColor(data);
               },
             },
             {
               id: 'color-red',
               content: 'red',
               tooltipText: 'red',
-              onClickFunction: function (event) {
+              onClickFunction: (event) => {
                 let target = event.target || event.cyTarget;
                 target.style('background-color', 'red');
+                var data = {"id": target.data('id'), 'backgroundColor': target.style('background-color')};
+                this.props.updateNodeColor(data);
               },
             },
           ]
