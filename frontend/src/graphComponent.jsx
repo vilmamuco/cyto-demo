@@ -4,6 +4,7 @@ import contextMenus from 'cytoscape-context-menus';
 import 'cytoscape-context-menus/cytoscape-context-menus.css';
 import cytoscape from 'cytoscape';
 import { v4 as uuidv4 } from 'uuid';
+import { toHaveDisplayValue } from '@testing-library/jest-dom/dist/matchers';
 
 // icons taken from https://uxwing.com/
 
@@ -23,10 +24,12 @@ export default class Graph extends Component {
             style={{
                 width: "800px",
                 height: "500px",
-                border: "1px solid black"
+                border: "1px solid black",
             }}
             cy={(cy) => {
               this.cy = cy
+              // set the color of the labels 
+              this.cy.nodes().style('color', 'white');
             }}
             layout={layout}
         />
@@ -47,7 +50,6 @@ export default class Graph extends Component {
 
     this.cy.on('click', 'node', (e) => {
       //click on node to modify
-      // var id = e.target.data('id');
       var data= {"id": e.target.data('id'), "label": e.target.data('label'), "backgroundColor": e.target.style('background-color')};
       this.props.modifyNodeForm(data);
     });
@@ -64,6 +66,20 @@ export default class Graph extends Component {
             var target = event.target || event.cyTarget;
             target.remove();
             this.props.deleteNodeFunct(target.data('id'));
+          },
+          hasTrailingDivider: true
+        },
+        {
+          id: 'deleteEdge',
+          content: ' Delete',
+          tooltipText: 'delete',
+          image: {src: require("./images/danger-icon.svg").default, width: 20, height: 20, x: 0, y: 4},
+          selector: 'edge',
+          onClickFunction: (event) => {
+            var target = event.target || event.cyTarget;
+            target.remove();
+            var dataInput= {"source": target.data('source'), "target": target.data('target')};
+            this.props.deleteEdge(dataInput);
           },
           hasTrailingDivider: true
         },
@@ -86,7 +102,8 @@ export default class Graph extends Component {
               position: {
                 x: pos.x,
                 y: pos.y
-              }
+              },
+              style:{'background-color':'#ff0000', 'color':"white"}
             });
             var dataInput= {"id": nodeId, "label": nodeLabel, "x": pos.x, 'y': pos.y, 'backgroundColor':'#ff0000'};
             this.props.saveNewElement(dataInput);

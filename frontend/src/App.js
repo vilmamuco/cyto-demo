@@ -84,6 +84,22 @@ async function deleteNodeandEdges(id) {
   }
 }
 
+async function deleteEdge(data) {
+  // function to delete the node and its corresponding edges
+  try {
+    const response = await fetch(`/deleteEdge`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  } catch (error) {
+    return console.log(error);
+  }
+}
+
 function App() {
   const [elements, setElements] = useState(() => []);
   const [elementIds, setElementIds] = useState(() => []);
@@ -172,6 +188,7 @@ function App() {
               deleteNodeFunct={deleteNodeandEdges}
               saveNewElement={saveNewElement}
               updateNodeColor={updateNodeColor}
+              deleteEdge={deleteEdge}
               modifyNodeForm={modifyNodeForm}
             />
           </div>

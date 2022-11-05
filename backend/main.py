@@ -39,9 +39,18 @@ def get_targetNodes():
 def delete_node():
     #deletes the node and the edges connected to it 
     id = request.json['id']
-    if (nodes.find() is not None )or nodes.find({'data.id': id}).count() > 0:
+    if (nodes.find() is not None ) and nodes.find({'data.id': id}).count() > 0:
         nodes.delete_one({'data.id':  id});
         edges.delete_many({'$or': [{'data.target': id}, {'data.source': id}]});
+    return get_elements()
+
+@app.route('/deleteEdge', methods=['POST'], strict_slashes=False)
+def delete_edge():
+    #deletes the node and the edges connected to it 
+    source = request.json['source']
+    target = request.json['target']
+    if (edges.find() is not None ) > 0:
+        edges.delete_many({'$and': [{'data.target': target}, {'data.source': source}]});
     return get_elements()
 
 @app.route('/updatePosition', methods=['POST'], strict_slashes=False)
