@@ -44,6 +44,13 @@ export default class Graph extends Component {
       console.warn(node.position());
     });
 
+    this.cy.on('click', 'node', (e) => {
+      //click on node to modify
+      // var id = e.target.data('id');
+      var data= {"id": e.target.data('id'), "label": e.target.data('label'), "backgroundColor": e.target.style('background-color')};
+      this.props.modifyNodeForm(data);
+    });
+
      var contextMenu = this.cy.contextMenus({
       menuItems: [
         {

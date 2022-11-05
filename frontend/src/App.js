@@ -52,6 +52,22 @@ async function saveNewElement(data) {
   }
 }
 
+async function updateElement(data) {
+  // function to update the node
+  try {
+    const response = await fetch(`/updateElement`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  } catch (error) {
+    return console.log(error);
+  }
+}
+
 async function deleteNodeandEdges(id) {
   // function to delete the node and its corresponding edges
   try {
@@ -69,11 +85,18 @@ async function deleteNodeandEdges(id) {
 }
 
 function App() {
-  const [currentTime, setCurrentTime] = useState(0);
-  const layout = { name: "cose-bilkent" };
   const [elements, setElements] = useState(() => []);
   const [elementIds, setElementIds] = useState(() => []);
   const [targetNodes, setTargetNodes] = useState(() => []);
+  const [nodeToMod, setNodeToMod] = useState(() => ({
+    id: "",
+    label: "",
+    backgroundColor: "#ff0000",
+  }));
+
+  const modifyNodeForm = (node) => {
+    setNodeToMod(node);
+  };
 
   // const elementsTest = [
   //   {
@@ -149,12 +172,15 @@ function App() {
               deleteNodeFunct={deleteNodeandEdges}
               saveNewElement={saveNewElement}
               updateNodeColor={updateNodeColor}
+              modifyNodeForm={modifyNodeForm}
             />
           </div>
           <div className="right">
             <UserInput
               targetNodes={targetNodes}
               saveNewElement={saveNewElement}
+              nodeToMod={nodeToMod}
+              updateElement={updateElement}
             />
           </div>
         </div>

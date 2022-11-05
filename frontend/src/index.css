@@ -35,6 +35,11 @@ border: none;
 border-radius: 0px;
 background: #d0dfe8;
 }
+
+.disabled {
+  background-color : #7a749f; 
+  color: #fff;
+}
 .contextMenu button{
   background: #880808;
   border-radius: 0px;

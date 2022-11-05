@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import ColorPicker from './colorPicker'
+import { BlockPicker } from 'react-color';
+
 class UserInput extends React.Component {
     constructor(props) {
       super(props);
@@ -8,12 +9,19 @@ class UserInput extends React.Component {
                     targetNode: '',
                     backgroundColor:'#ff0000'
                     };
-  
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleColorChange = this.handleColorChange.bind(this);
     }
   
+    componentWillReceiveProps(nextProps) {
+      // check to prevent unnecessary render
+      if (nextProps.nodeToMod['id'] != this.state.id) {
+          this.setState({ id: nextProps.nodeToMod['id'], 
+          label: nextProps.nodeToMod['label'], 
+          backgroundColor:nextProps.nodeToMod['backgroundColor'] });
+      }
+    }
     handleChange(event) {
       const target = event.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -26,36 +34,46 @@ class UserInput extends React.Component {
   
     handleColorChange(color)  {
       this.setState({
-        ['backgroundColor']: color
+        'backgroundColor': color.hex
       });
     }
-
+    
     handleSubmit(event) {
       if (this.state.id == "" || this.state.label == ""){
         alert("Please fill in the Node Id and the Label to continue.");
         return;
       }
       var data = {"id": this.state.id, "label": this.state.label, "target": this.state.targetNode, "backgroundColor": this.state.backgroundColor};
-      this.props.saveNewElement(data);
+      if (this.props.nodeToMod['id'].length >0){
+        this.props.updateElement(data);
+      }else{
+        this.props.saveNewElement(data);
+      }
       //event.preventDefault();
     }
   
     render() {
       return (
         <form onSubmit={this.handleSubmit}>
-          <label>Add a new Node</label>
+          {this.props.nodeToMod['id'].length >0
+            ? <label>Modify node</label>
+            : <label>Add a new Node</label>
+          }
           <br/><br/>
           <label>Node Id:
-            <input type="text" name="id" value={this.state.id} onChange={this.handleChange} />
+            {this.props.nodeToMod['id'].length >0
+              ? <input type="text" disabled name="id" value={this.props.nodeToMod['id']} className='disabled'/>
+              : <input type="text"  name="id" value={this.state.id} onChange={this.handleChange} />
+            }
           </label>
           <label>Node label:
             <input type="text" name="label" value={this.state.label} onChange={this.handleChange} />
           </label>
           <label>Node color:
-            <ColorPicker color={this.state.backgroundColor} handleColorChange={this.handleColorChange} />
+            <BlockPicker triangle='hide' color={this.state.backgroundColor} onChange={this.handleColorChange} />
           </label>
           <label>
-            Select a target Node: 
+            Select a target Node:
             <select name="targetNode" value={this.state.target} onChange={this.handleChange} >
               <option value='' >Select a target node</option>
               {this.props.targetNodes.map(({ id, label }, index) => <option value={id}  key={id} >{label}</option>)}
