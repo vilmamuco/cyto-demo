@@ -103,9 +103,9 @@ export default class Graph extends Component {
                 x: pos.x,
                 y: pos.y
               },
-              style:{'background-color':'#ff0000', 'color':"white"}
+              style:{'background-color':'#ff79c6', 'color':"white"}
             });
-            var dataInput= {"id": nodeId, "label": nodeLabel, "x": pos.x, 'y': pos.y, 'backgroundColor':'#ff0000'};
+            var dataInput= {"id": nodeId, "label": nodeLabel, "x": pos.x, 'y': pos.y, 'backgroundColor':'#ff79c6'};
             this.props.saveNewElement(dataInput);
           }
         },

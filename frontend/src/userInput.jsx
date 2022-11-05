@@ -7,7 +7,7 @@ class UserInput extends React.Component {
       this.state = {id: '', 
                     label: '', 
                     targetNode: '',
-                    backgroundColor:'#ff0000'
+                    backgroundColor:'#ff79c6'
                     };
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -70,7 +70,7 @@ class UserInput extends React.Component {
             <input type="text" name="label" value={this.state.label} onChange={this.handleChange} />
           </label>
           <label>Node color:
-            <BlockPicker triangle='hide' color={this.state.backgroundColor} onChange={this.handleColorChange} />
+            <BlockPicker triangle='hide' colors={['#ff79c6', '#8be9fd', '#50fa7b', '#ffb86c', '#bd93f9', '#ff5555', '#f1fa8c', '#ff8a65', '#ba68c8']} color={this.state.backgroundColor} onChange={this.handleColorChange} />
           </label>
           <label>
             Select a target Node:

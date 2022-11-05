@@ -14,6 +14,8 @@ html, div, canvas {
   margin: 0;
   padding: 0;
   text-align: left;
+  vertical-align: middle;
+  margin-left: 0;
 }
 
 code {
@@ -41,7 +43,7 @@ background: #d0dfe8;
   color: #fff;
 }
 .contextMenu button{
-  background: #880808;
+  background: #6272a4;
   border-radius: 0px;
   font-size: 16px;
   font-weight: 400;
@@ -59,20 +61,30 @@ padding: 10px;
 margin-top: 20px;
 border-radius: 20px;
 border: none;
-border-bottom: 4px solid #7B1818;
-background: #880808; 
+border-bottom: 4px solid #5b6a96;
+background: #6272a4; 
 font-size: 16px;
 font-weight: 400;
 color: #fff;
 }
 
 .left {
-  width: 50%;
   float: left;
-  padding: 20px;
+  padding: 50px;
 }
 
 .right {
   float: right;
   padding: 40px;
+}
+
+.legendComp {
+  width: 20%;
+  vertical-align: center;
+  background-color: #6272a4;
+  float: left;
+  padding: 0px;
+  font-size: 16px;
+  border-radius: 10px;
+  margin-left: 0;
 }

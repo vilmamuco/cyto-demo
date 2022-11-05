@@ -1,8 +1,8 @@
-import logo from "./logo.svg";
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import UserInput from "./userInput";
 import Graph from "./graphComponent";
+import LegendComp from "./legendComp";
 
 async function handleNodePosition(node) {
   // function to save the node position after a drag event into the mongoDb
@@ -107,7 +107,7 @@ function App() {
   const [nodeToMod, setNodeToMod] = useState(() => ({
     id: "",
     label: "",
-    backgroundColor: "#ff0000",
+    backgroundColor: "#ff79c6",
   }));
 
   const modifyNodeForm = (node) => {
@@ -180,6 +180,7 @@ function App() {
       <header className="App-header">
         <p>Coucou!</p>
         <div>
+          <LegendComp />
           <div className="left">
             <Graph
               elements={elements}
