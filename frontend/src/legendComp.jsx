@@ -16,7 +16,7 @@ export default class LegendComp extends React.Component {
               <li>Change color</li>
               <li>Add a new edge</li>
             </ul>
-            <li>Context menu</li>
+            <li>Context menu (right click)</li>
             <ul>
               <li>Add a new node </li>
               <li>Delete node</li>

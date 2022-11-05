@@ -39,7 +39,7 @@ def get_targetNodes():
 def delete_node():
     #deletes the node and the edges connected to it 
     id = request.json['id']
-    if (nodes.find() is not None ) and nodes.find({'data.id': id}).count() > 0:
+    if (nodes.find() is not None ) and nodes.count_documents({'data.id': id}) > 0:
         nodes.delete_one({'data.id':  id});
         edges.delete_many({'$or': [{'data.target': id}, {'data.source': id}]});
     return get_elements()

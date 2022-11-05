@@ -74,12 +74,13 @@ color: #fff;
 
 .left {
   float: left;
-  padding: 50px;
+  padding: 30px;
 }
 
 .right {
   float: right;
-  padding: 40px;
+  padding: 0px;
+  padding-right: 40px;
 }
 
 .legendComp {

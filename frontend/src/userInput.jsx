@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { BlockPicker } from 'react-color';
+import { v4 as uuidv4 } from 'uuid';
 
 class UserInput extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {id: '', 
+      this.state = {id: uuidv4(), 
                     label: '', 
                     targetNode: '',
                     backgroundColor:'#ff79c6'
@@ -16,7 +17,7 @@ class UserInput extends React.Component {
   
     componentWillReceiveProps(nextProps) {
       // check to prevent unnecessary render
-      if (nextProps.nodeToMod['id'] != this.state.id) {
+      if (nextProps.nodeToMod['id'] != this.state.id && nextProps.nodeToMod['id'] != '') {
           this.setState({ id: nextProps.nodeToMod['id'], 
           label: nextProps.nodeToMod['label'], 
           backgroundColor:nextProps.nodeToMod['backgroundColor'] });
@@ -60,11 +61,8 @@ class UserInput extends React.Component {
             : <label>Add a new Node</label>
           }
           <br/><br/>
-          <label>Node Id:
-            {this.props.nodeToMod['id'].length >0
-              ? <input type="text" disabled name="id" value={this.props.nodeToMod['id']} className='disabled'/>
-              : <input type="text"  name="id" value={this.state.id} onChange={this.handleChange} />
-            }
+          <label>
+            <input type="hidden" name="id" value={this.state.id} onChange={this.handleChange} />
           </label>
           <label>Node label:
             <input type="text" name="label" value={this.state.label} onChange={this.handleChange} />

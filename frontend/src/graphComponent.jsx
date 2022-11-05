@@ -4,7 +4,6 @@ import contextMenus from 'cytoscape-context-menus';
 import 'cytoscape-context-menus/cytoscape-context-menus.css';
 import cytoscape from 'cytoscape';
 import { v4 as uuidv4 } from 'uuid';
-import { toHaveDisplayValue } from '@testing-library/jest-dom/dist/matchers';
 
 // icons taken from https://uxwing.com/
 
