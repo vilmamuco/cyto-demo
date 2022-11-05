@@ -3,6 +3,7 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import contextMenus from 'cytoscape-context-menus';
 import 'cytoscape-context-menus/cytoscape-context-menus.css';
 import cytoscape from 'cytoscape';
+import { v4 as uuidv4 } from 'uuid';
 
 // icons taken from https://uxwing.com/
 
@@ -13,7 +14,7 @@ export default class Graph extends Component {
   render() {
 
     const layout = {
-        name: 'circle'
+        name: 'cose'
     };
     
     return(
@@ -74,19 +75,20 @@ export default class Graph extends Component {
           selector: 'node, edge',
           coreAsWell: true,
           onClickFunction: (event) => {
-            var data = {
-              id: 'test',
-              label: 'test node'
-            };
+            var nodeId=uuidv4();
+            var nodeLabel = 'Label'
             var pos = event.position || event.cyPosition;
             event.cy.add({
-              data: data,
+              data: {
+                id: nodeId,
+                label: nodeLabel
+              },
               position: {
                 x: pos.x,
                 y: pos.y
               }
             });
-            var dataInput= {"id": 'test', "label": 'test node', "x": pos.x, 'y': pos.y, 'backgroundColor':'#ff0000'};
+            var dataInput= {"id": nodeId, "label": nodeLabel, "x": pos.x, 'y': pos.y, 'backgroundColor':'#ff0000'};
             this.props.saveNewElement(dataInput);
           }
         },
@@ -128,7 +130,7 @@ export default class Graph extends Component {
                   tooltipText: 'dark blue',
                   onClickFunction:(event) => {
                     let target = event.target || event.cyTarget;
-                    target.style('background-color', '0066cc');
+                    target.style('background-color', '#0066cc');
                     var data = {"id": target.data('id'), 'backgroundColor': target.style('background-color')};
                     this.props.updateNodeColor(data);
                   },
