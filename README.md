@@ -68,5 +68,3 @@ The app does generates many requests but for the moment I don't see a way around
 - Refactoring the backend code (multiple redundand functions)
 - Better deployment.
   Using `docker compose` to lanch all three services together
-- change style of selected node while adding an edge or editing a node
-- un-select a node by clicking into empty canvas space

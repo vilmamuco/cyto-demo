@@ -124,6 +124,7 @@ function App() {
     id: "",
     label: "",
     backgroundColor: "#ff79c6",
+    targetNode: "",
   }));
 
   const modifyNodeForm = (node) => {

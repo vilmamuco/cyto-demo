@@ -42,6 +42,14 @@ export default class Graph extends Component {
           width: 1.5,
         },
       },
+      {
+        selector: ":selected",
+        css: {
+          "overlay-color": "blue",
+          "overlay-opacity": 0.5,
+          "overlay-padding": 5,
+        },
+      },
     ];
 
     return (
@@ -67,6 +75,24 @@ export default class Graph extends Component {
         name: "cose",
       })
       .run();
+
+    this.cy.on("unselect", "node", (e) => {
+      this.setState({
+        selectedNodeId: "",
+      });
+      //change form to add a new node
+      var data = {
+        id: "",
+        label: "",
+        backgroundColor: "#ff79c6",
+        targetNode: "",
+      };
+      this.props.modifyNodeForm(data);
+    });
+
+    this.cy.on("cxttap", "node", (event) => {
+      event.target.select();
+    });
 
     this.cy.on("dragfree", "node", (e) => {
       //save position of node on database after dragging
@@ -98,6 +124,7 @@ export default class Graph extends Component {
           id: e.target.data("id"),
           label: e.target.data("label"),
           backgroundColor: e.target.style("background-color"),
+          targetNode: "",
         };
         this.props.modifyNodeForm(data);
       }

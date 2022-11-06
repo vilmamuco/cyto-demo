@@ -18,14 +18,12 @@ class UserInput extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     // check to prevent unnecessary render
-    if (
-      nextProps.nodeToMod["id"] != this.state.id &&
-      nextProps.nodeToMod["id"] != ""
-    ) {
+    if (nextProps.nodeToMod["id"] != this.state.id) {
       this.setState({
-        id: nextProps.nodeToMod["id"],
+        id: uuidv4(),
         label: nextProps.nodeToMod["label"],
         backgroundColor: nextProps.nodeToMod["backgroundColor"],
+        targetNode: nextProps.nodeToMod["targetNode"],
       });
     }
   }
@@ -47,7 +45,7 @@ class UserInput extends React.Component {
 
   handleSubmit(event) {
     if (this.state.id == "" || this.state.label == "") {
-      alert("Please fill in the Node Id and the Label to continue.");
+      alert("Please fill in the Node Label to continue.");
       return;
     }
     var data = {
@@ -114,7 +112,7 @@ class UserInput extends React.Component {
           Select a target Node:
           <select
             name="targetNode"
-            value={this.state.target}
+            value={this.state.targetNode}
             onChange={this.handleChange}
           >
             <option value="">Select a target node</option>
