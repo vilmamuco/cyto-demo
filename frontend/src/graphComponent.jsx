@@ -23,9 +23,33 @@ export default class Graph extends Component {
         name: 'cose'
     };
     
+    const cytoscapeStylesheet = [
+      {
+        selector: 'node',
+        style: {
+          'label': 'data(label)' // here you can label the nodes 
+        }
+      },      
+      {
+        selector: "node[label]",
+        style: {
+          color: "white"
+        }
+      },
+      {
+        selector: "edge",
+        style: {
+          "curve-style": "bezier",
+          "target-arrow-shape": "triangle",
+          width: 1.5
+        }
+      }
+    ];
+
     return(
         <CytoscapeComponent
             elements={this.props.elements}
+            stylesheet={cytoscapeStylesheet}
             style={{
                 width: "800px",
                 height: "500px",
@@ -33,8 +57,6 @@ export default class Graph extends Component {
             }}
             cy={(cy) => {
               this.cy = cy
-              // set the color of the labels 
-              this.cy.nodes().style('color', 'white');
             }}
             layout={layout}
         />
@@ -58,9 +80,12 @@ export default class Graph extends Component {
         //add a new edge 
         var data= {"target": e.target.data('id'), "source": this.state.selectedNodeId};
         this.props.addNewEdge(data);
-        e.cy.add({
-          'data': data
-        });
+        var targetnode = this.cy.$('#'+ this.state.selectedNodeId);
+        if (targetnode.edgesTo( e.target ).length == 0){
+          e.cy.add({
+            'data': data
+          });
+        }
         this.setState({
           selectedNodeId: ''
         });
