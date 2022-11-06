@@ -59,7 +59,9 @@ class UserInput extends React.Component {
     } else {
       this.props.saveNewElement(data);
     }
-    //event.preventDefault();
+    event.preventDefault();
+    // hack: reload the page instead of just the graph
+    window.location.reload();
   }
 
   render() {
