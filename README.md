@@ -53,7 +53,7 @@ The app does generates many requests but for the moment I don't see a way around
   - Add a new edge
 - Context menu (right click)
   - Add a new node
-  - Select node to add a new edge
+  - Add a new edge (click to select a target node)
   - Delete node
   - Delete edge
   - Select a color
@@ -62,6 +62,11 @@ The app does generates many requests but for the moment I don't see a way around
 ## TODO list:
 
 - Add the posibility to relayout the graph
-- Add the posibility to have multiple graphs and select through a drop down button
+- Add the posibility to have multiple graphs and switch between them in the UI.
+  This can be done simply by adding a new id on the tables for the different graphs.
 - Modification of the node label direcly though the context menu (open a small field on the side of the node and save on enter)
 - Refactoring the backend code (multiple redundand functions)
+- Better deployment.
+  Using `docker compose` to lanch all three services together
+- change style of selected node while adding an edge or editing a node
+- un-select a node by clicking into empty canvas space
