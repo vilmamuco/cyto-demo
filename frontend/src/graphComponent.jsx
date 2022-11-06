@@ -10,7 +10,13 @@ import { v4 as uuidv4 } from 'uuid';
 cytoscape.use(contextMenus);
 export default class Graph extends Component {
   
-  
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedNodeId: ''
+      };
+  }
+
   render() {
 
     const layout = {
@@ -48,9 +54,21 @@ export default class Graph extends Component {
     });
 
     this.cy.on('click', 'node', (e) => {
-      //click on node to modify
-      var data= {"id": e.target.data('id'), "label": e.target.data('label'), "backgroundColor": e.target.style('background-color')};
-      this.props.modifyNodeForm(data);
+      if (this.state.selectedNodeId != ''){
+        //add a new edge 
+        var data= {"target": e.target.data('id'), "source": this.state.selectedNodeId};
+        this.props.addNewEdge(data);
+        e.cy.add({
+          'data': data
+        });
+        this.setState({
+          selectedNodeId: ''
+        });
+      }else{
+        //click on node to modify
+        var data= {"id": e.target.data('id'), "label": e.target.data('label'), "backgroundColor": e.target.style('background-color')};
+        this.props.modifyNodeForm(data);
+      }
     });
 
      var contextMenu = this.cy.contextMenus({
@@ -81,6 +99,18 @@ export default class Graph extends Component {
             this.props.deleteEdge(dataInput);
           },
           hasTrailingDivider: true
+        },
+        {id: 'addNodeEdge',
+          content: ' Click to select a target node',
+          tooltipText: 'Click a node to select it as a target node',
+          image: {src: require("./images/cluster-data-icon.svg").default, width: 20, height: 20, x: 0, y: 4},
+          selector: 'node',
+          onClickFunction: (event) => {
+            var target = event.target || event.cyTarget;
+            this.setState({
+              selectedNodeId: target.data('id')
+            });
+          }
         },
         {
           id: 'addNode',

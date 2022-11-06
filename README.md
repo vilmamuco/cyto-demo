@@ -53,6 +53,7 @@ The app does generates many requests but for the moment I don't see a way around
   - Add a new edge
 - Context menu (right click)
   - Add a new node
+  - Select node to add a new edge
   - Delete node
   - Delete edge
   - Select a color
@@ -60,7 +61,6 @@ The app does generates many requests but for the moment I don't see a way around
 
 ## TODO list:
 
-- Add edges just by selecting them (through context menu)
 - Add the posibility to relayout the graph
 - Add the posibility to have multiple graphs and select through a drop down button
 - Modification of the node label direcly though the context menu (open a small field on the side of the node and save on enter)

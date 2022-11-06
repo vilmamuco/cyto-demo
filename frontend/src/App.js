@@ -68,6 +68,22 @@ async function updateElement(data) {
   }
 }
 
+async function addNewEdge(data) {
+  // function to add a new edge between two nodes
+  try {
+    const response = await fetch(`/addNewEdge`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  } catch (error) {
+    return console.log(error);
+  }
+}
+
 async function deleteNodeandEdges(id) {
   // function to delete the node and its corresponding edges
   try {
@@ -191,6 +207,7 @@ function App() {
               updateNodeColor={updateNodeColor}
               deleteEdge={deleteEdge}
               modifyNodeForm={modifyNodeForm}
+              addNewEdge={addNewEdge}
             />
           </div>
           <div className="right">

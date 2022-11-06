@@ -125,6 +125,16 @@ def update_element():
 
     if (nodes.find() is not None ) and nodes.count_documents({'data.id': id}) > 0:
         nodes.update_one({"data.id": id}, {"$set": {'data.label':label , "style.background-color": color}})
-        if target:
+        if target and edges.count_documents({'$and': [{'data.target': target}, {'data.source': id}]}) == 0:
             edges.insert_one({'data':{'source':id, 'target': target, 'label':'test add'}});
+    return get_elements()
+
+@app.route('/addNewEdge', methods=['POST'], strict_slashes=False)
+def add_edge():
+    #updates the element in the corresponding tables in the database (nodes, edges)
+    source = request.json['source']
+    target = request.json['target']
+
+    if (edges.find() is None ) or ( edges.find() is not None and edges.count_documents({'$and': [{'data.target': target}, {'data.source': source}]}) == 0):
+        edges.insert_one({'data':{'source':source, 'target': target, 'label':'test add'}});
     return get_elements()
