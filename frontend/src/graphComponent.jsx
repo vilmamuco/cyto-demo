@@ -149,7 +149,7 @@ export default class Graph extends Component {
         },
         {
           id: "addNodeEdge",
-          content: " Click to select a target node",
+          content: " Add new edge (Click to select target)",
           tooltipText: "Click a node to select it as a target node",
           image: {
             src: require("./images/cluster-data-icon.svg").default,
