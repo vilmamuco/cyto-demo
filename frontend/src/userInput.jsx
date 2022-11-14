@@ -18,9 +18,20 @@ class UserInput extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     // check to prevent unnecessary render
-    if (nextProps.nodeToMod["id"] != this.state.id) {
+    if (
+      nextProps.nodeToMod["id"] != this.state.id &&
+      nextProps.nodeToMod["id"] == ""
+    ) {
+      console.log("bla");
       this.setState({
         id: uuidv4(),
+        label: nextProps.nodeToMod["label"],
+        backgroundColor: nextProps.nodeToMod["backgroundColor"],
+        targetNode: nextProps.nodeToMod["targetNode"],
+      });
+    } else if (nextProps.nodeToMod["id"] != this.state.id) {
+      this.setState({
+        id: nextProps.nodeToMod["id"],
         label: nextProps.nodeToMod["label"],
         backgroundColor: nextProps.nodeToMod["backgroundColor"],
         targetNode: nextProps.nodeToMod["targetNode"],
